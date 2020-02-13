@@ -1,12 +1,12 @@
 const users = [];
 
-const addUser = () => {
+const addUser = ({id, name, room }) => {
     // unify username and room name
     name = name.trim().toLowerCase();
     room = room.trim().toLowerCase();
 
     // checking the name of the user for matches with those already connected
-    const existingUser = users.find( (user) => {user.room === room && user.name == name00});
+    const existingUser = users.find( (user) => user.room === room && user.name == name);
 
     // warning user about busy name
     if (existingUser) {
@@ -18,7 +18,7 @@ const addUser = () => {
 
     users.push(user);
 
-    return user;
+    return {user};
 };
 
 const removeUser = () => {
