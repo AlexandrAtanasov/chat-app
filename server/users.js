@@ -8,9 +8,12 @@ const addUser = ({id, name, room }) => {
     // checking the name of the user for matches with those already connected
     const existingUser = users.find( (user) => user.room === room && user.name == name);
 
+
+    // warning user about required fields
+    if(!name || !room) return { error: 'Username and room are required' };
     // warning user about busy name
     if (existingUser) {
-        return({error: 'User name is taken'});
+        return {error: 'User name is taken'};
     };
 
     // creating a new user

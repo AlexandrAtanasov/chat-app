@@ -29,15 +29,11 @@ const Chat = ( {location} ) => {
         setRoom(room);
 
 
-        socket.emit('join', { name, room }, () => {
+        socket.emit('join', { name, room }, (error) => {
+            if (error) {
+                alert(error);
+            }
         }); 
-
-        // when user has left the chat - closing the channel
-        return () => {
-            socket.emit('disconnect');
-            socket.off();
-        };
-        
     }, [ENDPOINT, location.search]);
 
 
@@ -50,6 +46,13 @@ const Chat = ( {location} ) => {
         socket.on('roomData', ( {users} ) => {
             setUsers(users);
         });
+        
+        // when user has left the chat - closing the channel
+        return () => {
+            socket.emit('disconnect');
+            socket.off();
+        };
+        
     }, [messages]);
 
     const sendMessage = (event) => {
