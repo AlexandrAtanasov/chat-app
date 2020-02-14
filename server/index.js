@@ -34,6 +34,8 @@ io.on('connect', (socket) => {
         // information message for everyone in the room
         socket.broadcast.to(user.room).emit('message', {user: 'admin', text: `${user.name} join the room`});
 
+        // information for the specific room
+        io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
 
         callback();
     });
@@ -44,13 +46,19 @@ io.on('connect', (socket) => {
         const user = getUser(socket.id);
 
         io.to(user.room).emit('message',  { user: user.name, text: message });
+        // get online users for specific room 
+        io.to(user.room).emit('roomData',  { room: user.room, users: getUsersInRoom(user.room) });
 
         callback();
     });
 
     // watching a specific socket for a disconnection 
     socket.on('disconnect', () => {
-        console.log('User has left!');
+        const user = removeUser(socket.id);
+        
+        if (user) {
+            io.to(user.room).emit('message', { user: 'admin', text: `${user.name} has left the room`});
+        };
     });
 });
 

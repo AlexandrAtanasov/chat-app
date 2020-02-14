@@ -21,7 +21,7 @@ const addUser = ({id, name, room }) => {
     return {user};
 };
 
-const removeUser = () => {
+const removeUser = (id) => {
     // serching user in users
     const index = users.findIndex( (user) => user.id === id );
     // deleting that user from users and return arr
