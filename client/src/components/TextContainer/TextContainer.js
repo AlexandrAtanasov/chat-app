@@ -9,20 +9,18 @@ const TextContainer = ( {users} ) => {
         <div className="textContainer">
             <div>
                 <h1>Chat Application</h1>
-                <h2>Created with ReactJS, NodeJS, ExpressJS, Socket.IO</h2>
+                <p>Created with ReactJS, NodeJS, ExpressJS, Socket.IO</p>
             </div>
             { users ? (
                 <div>
-                    <h1>Online users:</h1>
+                    <h2>Online users:</h2>
                     <div className="activeContainer">
-                        <h2>
-                            {users.map(({name}) => (
-                                <div key={name} className="activeItem">
-                                    <img alt="Online Icon" src={onlineIcon}/>
-                                    {name}
-                                </div>
-                            ))}
-                        </h2>
+                        {users.map(({name}) => (
+                            <h3 key={name} className="activeItem">
+                                <img alt="Online Icon" src={onlineIcon}/>
+                                {name}
+                            </h3>
+                        ))}
                     </div>
                 </div>
             ) : null}

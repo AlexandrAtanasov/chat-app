@@ -7,7 +7,6 @@ import './Chat.css';
 import InfoBar from '../InfoBar/InfoBar';
 import Input from '../Input/Input';
 import Messages from '../Messages/Messages';
-import TextContainer from '../TextContainer/TextContainer';
 
 let socket;
 
@@ -17,7 +16,8 @@ const Chat = ( {location} ) => {
     const [room, setRoom] = useState('');
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    const ENDPOINT = 'localhost:5000';
+    // const ENDPOINT = 'localhost:5000';
+    const ENDPOINT = 'https://chat-application-on-react.herokuapp.com/';
 
     useEffect( () => {
         // get from URL name and room prop
@@ -63,16 +63,13 @@ const Chat = ( {location} ) => {
         };
     };
 
-    console.log(message, messages);
-
     return (
         <div className='outerContainer'>
             <div className='container'>
-                <InfoBar room={room}/>
+                <InfoBar room={room} users={users}/>
                 <Messages messages={messages} name={name}/>
                 <Input message={message} setMessage={setMessage} sendMessage={sendMessage}/>
             </div>
-            <TextContainer users={users} />
         </div>
     )
 }
